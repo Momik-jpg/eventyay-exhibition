@@ -67,8 +67,8 @@
                     {% if organization_type == 'sponsor' %}{% trans "Download sponsor keys" %}{% elif organization_type == 'exhibitor' %}{% trans "Download exhibitor keys" %}{% else %}{% trans "Download access keys" %}{% endif %}
                 </a>
                 {% if send_vouchers_url %}
-                    <button type="submit" form="organization-send-vouchers" class="btn btn-default" title="{% trans "Queue a voucher email for everyone in this list" %}">
-                        <i class="fa fa-envelope"></i> {% trans "Send vouchers to all" %}
+                    <button type="submit" form="organization-send-vouchers" class="btn btn-default" title="{% trans "Queue a voucher email for each selected entry" %}" data-organization-send-vouchers disabled>
+                        <i class="fa fa-envelope"></i> {% trans "Send vouchers to selected" %}
                     </button>
                 {% endif %}
                 {% if publish_url %}
@@ -100,6 +100,14 @@
                                     <i class="fa fa-eye-slash"></i> {{ label_unpublish }}
                                 </button>
                             </li>
+                            {% if public_preview_url %}
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="{{ public_preview_url }}" target="_blank" rel="noopener noreferrer" title="{% trans "See the public page including organizations that are not published yet" %}">
+                                        <i class="fa fa-search"></i> {% trans "Preview public page" %}
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 {% endif %}
