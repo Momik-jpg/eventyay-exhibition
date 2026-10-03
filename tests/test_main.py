@@ -367,10 +367,10 @@ def test_default_field_edit_overrides_label_and_help_text(event):
 @pytest.mark.django_db
 def test_default_field_edit_prefills_saved_custom_values(event):
     settings = make_exhibitor_settings(event)
-    stored = settings.proposal_field_settings
+    stored = settings.request_field_settings
     stored["name"]["label"] = "University name"
     stored["name"]["help_text"] = "Use the official name."
-    settings.save(update_fields=["proposal_field_settings"])
+    settings.save(update_fields=["request_field_settings"])
 
     view = ExhibitionDefaultFieldEditView()
     view.request = _default_field_request(event, method="get")
