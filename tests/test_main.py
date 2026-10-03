@@ -381,6 +381,18 @@ def test_default_field_edit_prefills_saved_custom_values(event):
     assert form.initial["label"] == "University name"
     assert form.initial["help_text"] == "Use the official name."
 
+    view.request = _default_field_request(
+        event,
+        data={"label": form.initial["label"], "help_text": form.initial["help_text"]},
+    )
+    response = view.post(view.request, key="name")
+    assert response.status_code == 302
+
+    settings.refresh_from_db()
+    normalized = settings.normalized_request_field_settings
+    assert normalized["name"]["custom_label"] == "University name"
+    assert normalized["name"]["custom_help_text"] == "Use the official name."
+
 
 @pytest.mark.django_db
 def test_default_field_reset_restores_builtin_label(event):
